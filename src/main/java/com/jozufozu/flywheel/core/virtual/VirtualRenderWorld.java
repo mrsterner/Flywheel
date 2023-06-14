@@ -20,6 +20,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.SectionPos;
 import net.minecraft.core.Vec3i;
+import net.minecraft.server.level.ThreadedLevelLightEngine;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
@@ -100,10 +101,9 @@ public class VirtualRenderWorld extends Level implements FlywheelWorld {
 			BlockState state = entry.getValue();
 			int light = state.getLightEmission();
 			if (light > 0) {
-				lighter.onBlockEmissionIncrease(pos, light);
+				lighter.propagateLightSources(pos);
 			}
 		}
-
 		lighter.runUpdates(Integer.MAX_VALUE, false, false);
 	}
 
