@@ -1,5 +1,7 @@
 package com.jozufozu.flywheel.core.virtual;
 
+import net.minecraft.core.registries.Registries;
+
 import org.jetbrains.annotations.Nullable;
 
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
@@ -66,7 +68,7 @@ public interface VirtualEmptyBlockGetter extends RenderAttachedBlockView {
 
 	@Override
 	default int getBlockTint(BlockPos pos, ColorResolver resolver) {
-		Biome plainsBiome = Minecraft.getInstance().getConnection().registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).getOrThrow(Biomes.PLAINS);
+		Biome plainsBiome = Minecraft.getInstance().getConnection().registryAccess().registryOrThrow(Registries.BIOME).getOrThrow(Biomes.PLAINS);
 		return resolver.getColor(plainsBiome, pos.getX(), pos.getZ());
 	}
 

@@ -7,10 +7,12 @@ import java.util.Set;
 
 import com.jozufozu.flywheel.core.vertex.PosTexNormalWriterUnsafe;
 
+import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 
 import org.joml.Matrix3f;
+import org.joml.Quaternionf;
 import org.joml.Quaternionfc;
 import org.joml.Vector3f;
 
@@ -192,21 +194,21 @@ public class PartBuilder {
 			Vector3f south = Direction.SOUTH.step();
 
 			if (useRotation) {
-				Matrix3f matrix3f = Quaternionfc() //  .(rotationX, rotationY, rotationZ, false));
-				lll.(matrix3f);
-				hll.transform(matrix3f);
-				hhl.transform(matrix3f);
-				lhl.transform(matrix3f);
-				llh.transform(matrix3f);
-				hlh.transform(matrix3f);
-				hhh.transform(matrix3f);
-				lhh.transform(matrix3f);
-				down.transform(matrix3f);
-				up.transform(matrix3f);
-				west.transform(matrix3f);
-				north.transform(matrix3f);
-				east.transform(matrix3f);
-				south.transform(matrix3f);
+				Quaternionf quaternionf = new Quaternionf().rotationXYZ(rotationX , rotationY , rotationZ ); //  .(rotationX, rotationY, rotationZ, false));
+				lll.rotate(quaternionf);
+				hll.rotate(quaternionf);
+				hhl.rotate(quaternionf);
+				lhl.rotate(quaternionf);
+				llh.rotate(quaternionf);
+				hlh.rotate(quaternionf);
+				hhh.rotate(quaternionf);
+				lhh.rotate(quaternionf);
+				down.rotate(quaternionf);
+				up.rotate(quaternionf);
+				west.rotate(quaternionf);
+				north.rotate(quaternionf);
+				east.rotate(quaternionf);
+				south.rotate(quaternionf);
 			}
 
 			float f4 = getU((float)textureOffsetU);

@@ -10,7 +10,7 @@ import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.fabricmc.fabric.api.renderer.v1.material.BlendMode;
 import net.fabricmc.fabric.api.renderer.v1.mesh.QuadView;
 import net.fabricmc.fabric.impl.client.indigo.renderer.IndigoRenderer;
-import net.fabricmc.fabric.impl.client.indigo.renderer.RenderMaterialImpl;
+import net.fabricmc.fabric.impl.client.indigo.renderer.material.RenderMaterialImpl;
 import net.fabricmc.fabric.impl.client.indigo.renderer.mesh.QuadViewImpl;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -60,7 +60,7 @@ public class FabricModelUtil {
 		} else if (FabricLoader.getInstance().isModLoaded("indium")) {
 			return quad -> ((link.infra.indium.renderer.RenderMaterialImpl) quad.material()).blendMode(0);
 		} else if (RendererAccess.INSTANCE.getRenderer() instanceof IndigoRenderer) {
-			return quad -> ((RenderMaterialImpl) quad.material()).blendMode(0);
+			return quad -> (quad.material()).blendMode();
 		}
 		return quad -> BlendMode.DEFAULT;
 	}

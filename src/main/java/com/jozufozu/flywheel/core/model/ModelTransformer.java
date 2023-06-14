@@ -8,15 +8,16 @@ import com.jozufozu.flywheel.util.DiffuseLightCalculator;
 import com.jozufozu.flywheel.util.transform.Transform;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
-import com.mojang.math.Vector4f;
 
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.Mth;
+
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 public class ModelTransformer {
 
@@ -43,17 +44,15 @@ public class ModelTransformer {
 		Vector4f pos = new Vector4f();
 		Vector3f normal = new Vector3f();
 
-		Matrix4f modelMat = input.last()
-				.pose()
-				.copy();
-		modelMat.multiply(params.model);
+		Matrix4f modelMat = new Matrix4f(input.last().pose());
+		modelMat.mul(params.model);
 
 		Matrix3f normalMat;
 		if (context.fullNormalTransform) {
-			normalMat = input.last().normal().copy();
+			normalMat = new Matrix3f(input.last().normal());
 			normalMat.mul(params.normal);
 		} else {
-			normalMat = params.normal.copy();
+			normalMat = new Matrix3f(params.normal);
 		}
 
 		final DiffuseLightCalculator diffuseCalculator = DiffuseLightCalculator.forCurrentLevel();
@@ -64,7 +63,7 @@ public class ModelTransformer {
 			float y = reader.getY(i);
 			float z = reader.getZ(i);
 			pos.set(x, y, z, 1F);
-			pos.transform(modelMat);
+			pos.mul(modelMat);
 			builder.vertex(pos.x(), pos.y(), pos.z());
 
 			float normalX = reader.getNX(i);
@@ -72,7 +71,7 @@ public class ModelTransformer {
 			float normalZ = reader.getNZ(i);
 
 			normal.set(normalX, normalY, normalZ);
-			normal.transform(normalMat);
+			normal.mul(normalMat);
 			normal.normalize();
 			float nx = normal.x();
 			float ny = normal.y();
@@ -185,8 +184,8 @@ public class ModelTransformer {
 		}
 
 		public void loadDefault() {
-			model.setIdentity();
-			normal.setIdentity();
+			model.identity();
+			normal.identity();
 			useParamColor = true;
 			r = 0xFF;
 			g = 0xFF;
@@ -199,8 +198,8 @@ public class ModelTransformer {
 		}
 
 		public void load(Params from) {
-			model.load(from.model);
-			normal.load(from.normal);
+			model.set(from.model);
+			normal.set(from.normal);
 			useParamColor = from.useParamColor;
 			r = from.r;
 			g = from.g;
@@ -256,41 +255,41 @@ public class ModelTransformer {
 		}
 
 		@Override
-		public Params multiply(Quaternion quaternion) {
-			model.multiply(quaternion);
-			normal.mul(quaternion);
+		public Params multiply(Quaternionf quaternion) {
+			model.rotate(quaternion);
+			normal.rotate(quaternion);
 			return this;
 		}
 
 		@Override
 		public Params scale(float pX, float pY, float pZ) {
-			model.multiply(Matrix4f.createScaleMatrix(pX, pY, pZ));
+			model.mul(new Matrix4f().scale(pX, pY, pZ));
 			if (pX == pY && pY == pZ) {
 				if (pX > 0.0F) {
 					return this;
 				}
-
-				normal.mul(-1.0F);
+				//TODO is this really normal.mul(-1.0f);?
+				normal.mul(new Matrix3f().identity().scale(-1.0F));
 			}
 
 			float f = 1.0F / pX;
 			float f1 = 1.0F / pY;
 			float f2 = 1.0F / pZ;
 			float f3 = Mth.fastInvCubeRoot(f * f1 * f2);
-			normal.mul(Matrix3f.createScaleMatrix(f3 * f, f3 * f1, f3 * f2));
+			normal.mul(new Matrix3f().scale(f3 * f, f3 * f1, f3 * f2));
 			return this;
 		}
 
 		@Override
 		public Params translate(double x, double y, double z) {
-			model.multiplyWithTranslation((float) x, (float) y, (float) z);
+			model.translate((float) x, (float) y, (float) z);
 
 			return this;
 		}
 
 		@Override
 		public Params mulPose(Matrix4f pose) {
-			this.model.multiply(pose);
+			this.model.mul(pose);
 			return this;
 		}
 

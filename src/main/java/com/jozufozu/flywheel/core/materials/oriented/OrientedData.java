@@ -1,10 +1,11 @@
 package com.jozufozu.flywheel.core.materials.oriented;
 
 import com.jozufozu.flywheel.core.materials.BasicData;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.core.BlockPos;
+
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 public class OrientedData extends BasicData {
 
@@ -59,8 +60,8 @@ public class OrientedData extends BasicData {
 		return this;
 	}
 
-	public OrientedData setRotation(Quaternion q) {
-		return setRotation(q.i(), q.j(), q.k(), q.r());
+	public OrientedData setRotation(Quaternionf q) {
+		return setRotation(q.x(), q.y(), q.z(), q.w());
 	}
 
 	public OrientedData setRotation(float x, float y, float z, float w) {

@@ -1,12 +1,12 @@
 package com.jozufozu.flywheel.mixin.matrix;
 
+import org.joml.Matrix4f;
 import org.lwjgl.system.MemoryUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 import com.jozufozu.flywheel.backend.gl.buffer.VecBuffer;
 import com.jozufozu.flywheel.util.MatrixWrite;
-import com.mojang.math.Matrix4f;
 
 @Mixin(Matrix4f.class)
 public abstract class Matrix4fMixin implements MatrixWrite {

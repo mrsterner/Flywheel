@@ -41,7 +41,7 @@ public final class WorldModelBuilder implements Bufferable {
 
 		ModelBlockRenderer.enableCaching();
 		for (StructureTemplate.StructureBlockInfo info : this.blocks) {
-			BlockState state = info.state;
+			BlockState state = info.state();
 
 			if (state.getRenderShape() != RenderShape.MODEL) continue;
 
@@ -58,7 +58,7 @@ public final class WorldModelBuilder implements Bufferable {
 				model = shadeSeparatingWrapper.wrapModel(model);
 			}
 
-			BlockPos pos = info.pos;
+			BlockPos pos = info.pos();
 
 			poseStack.pushPose();
 			poseStack.translate(pos.getX(), pos.getY(), pos.getZ());

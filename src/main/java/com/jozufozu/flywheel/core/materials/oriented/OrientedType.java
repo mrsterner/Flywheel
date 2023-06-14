@@ -8,9 +8,10 @@ import com.jozufozu.flywheel.core.Programs;
 import com.jozufozu.flywheel.core.layout.BufferLayout;
 import com.jozufozu.flywheel.core.layout.CommonItems;
 import com.jozufozu.flywheel.core.model.ModelTransformer;
-import com.mojang.math.Quaternion;
 
 import net.minecraft.resources.ResourceLocation;
+
+import org.joml.Quaternionf;
 
 public class OrientedType implements Instanced<OrientedData>, Batched<OrientedData> {
 
@@ -44,7 +45,7 @@ public class OrientedType implements Instanced<OrientedData>, Batched<OrientedDa
 		b.light(d.getPackedLight())
 				.color(d.r, d.g, d.b, d.a)
 				.translate(d.posX + d.pivotX, d.posY + d.pivotY, d.posZ + d.pivotZ)
-				.multiply(new Quaternion(d.qX, d.qY, d.qZ, d.qW))
+				.multiply(new Quaternionf(d.qX, d.qY, d.qZ, d.qW))
 				.translate(-d.pivotX, -d.pivotY, -d.pivotZ);
 	}
 }

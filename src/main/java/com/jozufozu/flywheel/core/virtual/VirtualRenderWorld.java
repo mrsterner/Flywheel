@@ -13,6 +13,7 @@ import javax.annotation.Nullable;
 
 import com.jozufozu.flywheel.api.FlywheelWorld;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -23,6 +24,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
@@ -50,7 +52,6 @@ public class VirtualRenderWorld extends Level implements FlywheelWorld {
 	public final Map<BlockPos, BlockEntity> besAdded = new HashMap<>();
 	public final Set<SectionPos> spannedSections = new HashSet<>();
 	private final BlockPos.MutableBlockPos scratch = new BlockPos.MutableBlockPos();
-
 	protected final Level level;
 	protected final LevelLightEngine lighter;
 	protected final VirtualChunkSource chunkSource;
@@ -69,8 +70,7 @@ public class VirtualRenderWorld extends Level implements FlywheelWorld {
 	}
 
 	public VirtualRenderWorld(Level level, Vec3i biomeOffset, int height, int minBuildHeight) {
-		super((WritableLevelData) level.getLevelData(), level.dimension(), level.dimensionTypeRegistration(), level::getProfiler,
-				true, false, 0, 0);
+		super((WritableLevelData) level.getLevelData(), level.dimension(), level.dimensionTypeRegistration(), level::getProfiler, true, false, 0, 0);
 		this.biomeOffset = biomeOffset;
 		this.level = level;
 		this.height = nextMultipleOf16(height);
@@ -233,6 +233,11 @@ public class VirtualRenderWorld extends Level implements FlywheelWorld {
 	}
 
 	@Override
+	public FeatureFlagSet enabledFeatures() {
+		return null;
+	}
+
+	@Override
 	public LevelTickAccess<Block> getBlockTicks() {
 		return level.getBlockTicks();
 	}
@@ -299,8 +304,14 @@ public class VirtualRenderWorld extends Level implements FlywheelWorld {
 			SoundEvent p_220367_, SoundSource p_220368_, float p_220369_, float p_220370_, long p_220371_) {}
 
 	@Override
-	public void playSeededSound(Player p_220372_, Entity p_220373_, SoundEvent p_220374_, SoundSource p_220375_,
-			float p_220376_, float p_220377_, long p_220378_) {}
+	public void playSeededSound(@org.jetbrains.annotations.Nullable Player player, Entity entity, Holder<SoundEvent> holder, SoundSource soundSource, float f, float g, long l) {
+
+	}
+
+	@Override
+	public void playSeededSound(@org.jetbrains.annotations.Nullable Player player, double d, double e, double f, Holder<SoundEvent> holder, SoundSource soundSource, float g, float h, long l) {
+
+	}
 
 	@Override
 	public void playSound(@Nullable Player player, double x, double y, double z, SoundEvent soundIn,

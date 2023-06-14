@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 
@@ -52,24 +52,16 @@ public class StitchedSprite {
 		return sprite;
 	}
 
-	private static class SingleAtlasSpriteHolder implements ClientSpriteRegistryCallback {
+	private static class SingleAtlasSpriteHolder   {
 		private final ResourceLocation atlasLocation;
 		private final List<StitchedSprite> sprites = new ArrayList<>();
 
 		private SingleAtlasSpriteHolder(ResourceLocation atlasLocation) {
 			this.atlasLocation = atlasLocation;
-			ClientSpriteRegistryCallback.event(this.atlasLocation).register(this);
 		}
 
 		public void add(StitchedSprite sprite) {
 			sprites.add(sprite);
-		}
-
-		@Override
-		public void registerSprites(TextureAtlas atlas, Registry registry) {
-			for (StitchedSprite sprite : sprites) {
-				registry.register(sprite.getLocation());
-			}
 		}
 
 		public void loadSprites(TextureAtlas atlas) {

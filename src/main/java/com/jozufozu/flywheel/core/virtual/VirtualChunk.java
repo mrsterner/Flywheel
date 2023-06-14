@@ -17,6 +17,7 @@ import it.unimi.dsi.fastutil.longs.LongSets;
 import it.unimi.dsi.fastutil.shorts.ShortList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.ChunkPos;
@@ -46,7 +47,7 @@ public class VirtualChunk extends ChunkAccess {
 
 	public VirtualChunk(VirtualRenderWorld world, int x, int z) {
 		super(new ChunkPos(x, z), UpgradeData.EMPTY, world, world.registryAccess()
-			.registry(Registry.BIOME_REGISTRY)
+			.registry(Registries.BIOME)
 			.orElseThrow(), 0L, null, null);
 
 		this.world = world;
@@ -66,6 +67,8 @@ public class VirtualChunk extends ChunkAccess {
 			((ExtendedChunk)this).setSkyNibbles(StarLightEngine.getFilledEmptyLight(this));
 		});
 	}
+
+
 
 	@Override
 	public Stream<BlockPos> getLights() {
