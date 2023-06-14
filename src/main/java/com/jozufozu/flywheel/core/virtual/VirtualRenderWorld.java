@@ -14,6 +14,7 @@ import javax.annotation.Nullable;
 import com.jozufozu.flywheel.api.FlywheelWorld;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -28,6 +29,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeManager;
 import net.minecraft.world.level.block.Block;
@@ -101,10 +103,10 @@ public class VirtualRenderWorld extends Level implements FlywheelWorld {
 			BlockState state = entry.getValue();
 			int light = state.getLightEmission();
 			if (light > 0) {
-				lighter.propagateLightSources(pos);
+				lighter.propagateLightSources(level.getChunkAt(pos).getPos());
 			}
 		}
-		lighter.runUpdates(Integer.MAX_VALUE, false, false);
+		lighter.runLightUpdates();
 	}
 
 	public void setBlockEntities(Collection<BlockEntity> blockEntities) {
