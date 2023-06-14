@@ -9,8 +9,8 @@ import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.jozufozu.flywheel.util.AnimationTickHolder;
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
+
+import com.mojang.math.Axis;
 
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
@@ -19,6 +19,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
+
+import org.joml.Quaternionf;
 
 public class ShulkerBoxInstance extends BlockEntityInstance<ShulkerBoxBlockEntity> implements DynamicInstance {
 
@@ -39,7 +41,7 @@ public class ShulkerBoxInstance extends BlockEntityInstance<ShulkerBoxBlockEntit
 		} else {
 			texture = Sheets.SHULKER_TEXTURE_LOCATION.get(color.getId()).sprite();
 		}
-		Quaternion rotation = getDirection().getRotation();
+		Quaternionf rotation = getDirection().getRotation();
 
 		TransformStack tstack = TransformStack.cast(stack);
 
@@ -64,7 +66,7 @@ public class ShulkerBoxInstance extends BlockEntityInstance<ShulkerBoxBlockEntit
 		if (progress == lastProgress) return;
 		lastProgress = progress;
 
-		Quaternion spin = Vector3f.YP.rotationDegrees(270.0F * progress);
+		Quaternionf spin = Axis.YP.rotationDegrees(270.0F * progress);
 
 		TransformStack tstack = TransformStack.cast(stack);
 
@@ -93,14 +95,14 @@ public class ShulkerBoxInstance extends BlockEntityInstance<ShulkerBoxBlockEntit
 	private ModelData makeBaseInstance() {
         return materialManager.cutout(RenderType.entityCutoutNoCull(Sheets.SHULKER_SHEET))
                 .material(Materials.TRANSFORMED)
-				.model("base_" + texture.getName(), this::makeBaseModel)
+				.model("base_" + texture.toString(), this::makeBaseModel)
 				.createInstance();
 	}
 
 	private ModelData makeLidInstance() {
         return materialManager.cutout(RenderType.entityCutoutNoCull(Sheets.SHULKER_SHEET))
                 .material(Materials.TRANSFORMED)
-				.model("lid_" + texture.getName(), this::makeLidModel)
+				.model("lid_" + texture.toString(), this::makeLidModel)
 				.createInstance();
 	}
 

@@ -94,7 +94,7 @@ public class ChestInstance<T extends BlockEntity & LidBlockEntity> extends Block
 				.multiply(baseRotation)
 				.unCentre()
 				.translate(0, 0, 1f / 16f)
-				.multiply(Vector3f.XP.rotation(angleX))
+				.multiply(Axis.XP.rotation(angleX))
 				.translate(0, 0, -1f / 16f);
 	}
 
