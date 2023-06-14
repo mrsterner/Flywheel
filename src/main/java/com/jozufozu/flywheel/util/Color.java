@@ -5,10 +5,11 @@ import java.util.function.UnaryOperator;
 import javax.annotation.Nonnull;
 
 import com.google.common.hash.Hashing;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
+
+import org.joml.Vector3f;
 
 @SuppressWarnings("PointlessBitwiseExpression")
 public class Color {

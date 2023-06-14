@@ -17,7 +17,7 @@ public interface Rotate<Self> {
 	default Self rotate(Direction axis, float radians) {
 		if (radians == 0)
 			return (Self) this;
-		return multiply(axis.step().rotation(radians));
+		return multiply(new Quaternionf().fromAxisAngleRad(axis.step(), radians));
 	}
 
 	default Self rotate(double angle, Direction.Axis axis) {

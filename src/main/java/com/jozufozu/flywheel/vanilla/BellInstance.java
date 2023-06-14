@@ -7,12 +7,13 @@ import com.jozufozu.flywheel.core.Materials;
 import com.jozufozu.flywheel.core.hardcoded.ModelPart;
 import com.jozufozu.flywheel.core.materials.oriented.OrientedData;
 import com.jozufozu.flywheel.util.AnimationTickHolder;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.blockentity.BellRenderer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BellBlockEntity;
+
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 public class BellInstance extends BlockEntityInstance<BellBlockEntity> implements DynamicInstance {
 
@@ -40,9 +41,9 @@ public class BellInstance extends BlockEntityInstance<BellBlockEntity> implement
 
 			Vector3f ringAxis = blockEntity.clickDirection.getCounterClockWise().step();
 
-			bell.setRotation(ringAxis.rotation(angle));
+			bell.setRotation(new Quaternionf().fromAxisAngleRad(ringAxis, angle));
 		} else {
-			bell.setRotation(Quaternion.ONE);
+			bell.setRotation(new Quaternionf());
 		}
 	}
 

@@ -12,8 +12,8 @@ import com.jozufozu.flywheel.core.hardcoded.ModelPart;
 import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.jozufozu.flywheel.core.materials.oriented.OrientedData;
 import com.jozufozu.flywheel.util.AnimationTickHolder;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
+
+import com.mojang.math.Axis;
 
 import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
 import net.minecraft.client.renderer.RenderType;
@@ -28,6 +28,8 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.LidBlockEntity;
 import net.minecraft.world.level.block.state.properties.ChestType;
 
+import org.joml.Quaternionf;
+
 public class ChestInstance<T extends BlockEntity & LidBlockEntity> extends BlockEntityInstance<T> implements DynamicInstance {
 
 	private final OrientedData body;
@@ -37,7 +39,7 @@ public class ChestInstance<T extends BlockEntity & LidBlockEntity> extends Block
 	private final Material renderMaterial;
 	@Nonnull
 	private final ChestType chestType;
-	private final Quaternion baseRotation;
+	private final Quaternionf baseRotation;
 
 	private float lastProgress = Float.NaN;
 
@@ -57,7 +59,7 @@ public class ChestInstance<T extends BlockEntity & LidBlockEntity> extends Block
 
 			float horizontalAngle = blockState.getValue(ChestBlock.FACING).toYRot();
 
-			baseRotation = Vector3f.YP.rotationDegrees(-horizontalAngle);
+			baseRotation = Axis.YP.rotationDegrees(-horizontalAngle);
 
 			body.setRotation(baseRotation);
 
@@ -67,7 +69,7 @@ public class ChestInstance<T extends BlockEntity & LidBlockEntity> extends Block
 
 
 		} else {
-			baseRotation = Quaternion.ONE;
+			baseRotation = new Quaternionf();
 			lidProgress = $ -> 0f;
 		}
 	}

@@ -1,9 +1,10 @@
 package com.jozufozu.flywheel.util.transform;
 
-import com.mojang.math.Vector3f;
 
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.phys.Vec3;
+
+import org.joml.Vector3f;
 
 public interface Translate<Self> {
 	Self translate(double x, double y, double z);
