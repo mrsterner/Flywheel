@@ -16,9 +16,10 @@ import com.jozufozu.flywheel.core.Formats;
 import com.jozufozu.flywheel.core.compile.ProgramContext;
 import com.jozufozu.flywheel.core.shader.WorldProgram;
 import com.jozufozu.flywheel.util.Textures;
-import com.mojang.math.Matrix4f;
 
 import net.minecraft.client.renderer.RenderType;
+
+import org.joml.Matrix4f;
 
 /**
  * A group of materials all rendered with the same GL state.

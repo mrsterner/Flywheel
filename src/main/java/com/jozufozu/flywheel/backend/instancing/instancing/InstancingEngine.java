@@ -19,13 +19,14 @@ import com.jozufozu.flywheel.event.RenderLayerEvent;
 import com.jozufozu.flywheel.fabric.helper.Matrix4fHelper;
 import com.jozufozu.flywheel.util.FlwUtil;
 import com.jozufozu.flywheel.util.WeakHashSet;
-import com.mojang.math.Matrix4f;
 
 import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.util.Mth;
+
+import org.joml.Matrix4f;
 
 public class InstancingEngine<P extends WorldProgram> implements Engine {
 
@@ -87,7 +88,7 @@ public class InstancingEngine<P extends WorldProgram> implements Engine {
 			camY = event.camY - originCoordinate.getY();
 			camZ = event.camZ - originCoordinate.getZ();
 
-			viewProjection = Matrix4f.createTranslateMatrix((float) -camX, (float) -camY, (float) -camZ);
+			viewProjection = new Matrix4f().translate((float) -camX, (float) -camY, (float) -camZ);
 			Matrix4fHelper.multiplyBackward(viewProjection, event.viewProjection);
 		} else {
 			camX = event.camX;

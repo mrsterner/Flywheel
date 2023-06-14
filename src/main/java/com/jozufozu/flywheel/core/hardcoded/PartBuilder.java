@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Set;
 
 import com.jozufozu.flywheel.core.vertex.PosTexNormalWriterUnsafe;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
+
+import org.joml.Matrix3f;
+import org.joml.Quaternionfc;
+import org.joml.Vector3f;
 
 public class PartBuilder {
 
@@ -191,8 +192,8 @@ public class PartBuilder {
 			Vector3f south = Direction.SOUTH.step();
 
 			if (useRotation) {
-				Matrix3f matrix3f = new Matrix3f(new Quaternion(rotationX, rotationY, rotationZ, false));
-				lll.transform(matrix3f);
+				Matrix3f matrix3f = Quaternionfc() //  .(rotationX, rotationY, rotationZ, false));
+				lll.(matrix3f);
 				hll.transform(matrix3f);
 				hhl.transform(matrix3f);
 				lhl.transform(matrix3f);

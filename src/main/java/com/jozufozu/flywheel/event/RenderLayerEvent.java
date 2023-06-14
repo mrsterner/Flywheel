@@ -7,11 +7,12 @@ import com.jozufozu.flywheel.fabric.event.EventContext;
 import com.jozufozu.flywheel.fabric.helper.Matrix4fHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Matrix4f;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.client.renderer.RenderType;
+
+import org.joml.Matrix4f;
 
 public class RenderLayerEvent extends EventContext {
 	private final ClientLevel world;
@@ -29,9 +30,7 @@ public class RenderLayerEvent extends EventContext {
 		this.type = type;
 		this.stack = stack;
 
-		viewProjection = stack.last()
-				.pose()
-				.copy();
+		viewProjection = new Matrix4f(stack.last().pose());
         Matrix4fHelper.multiplyBackward(viewProjection, RenderSystem.getProjectionMatrix());
 
 		this.buffers = buffers;

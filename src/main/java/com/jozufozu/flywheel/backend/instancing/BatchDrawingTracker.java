@@ -7,6 +7,8 @@ import com.jozufozu.flywheel.backend.model.BufferBuilderExtension;
 import com.jozufozu.flywheel.backend.model.DirectVertexConsumer;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 
+import com.mojang.blaze3d.vertex.VertexSorting;
+
 import net.minecraft.client.renderer.RenderType;
 
 public class BatchDrawingTracker {
@@ -74,7 +76,7 @@ public class BatchDrawingTracker {
 		if (drawBuffer.hasVertices()) {
 			drawBuffer.inject(scratch);
 
-			renderType.end(this.scratch, 0, 0, 0);
+			renderType.end(this.scratch, VertexSorting.DISTANCE_TO_ORIGIN);
 
 			drawBuffer.reset();
 		}

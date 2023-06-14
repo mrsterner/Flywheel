@@ -20,11 +20,12 @@ import com.jozufozu.flywheel.backend.instancing.ratelimit.DistanceUpdateLimiter;
 import com.jozufozu.flywheel.backend.instancing.ratelimit.NonLimiter;
 import com.jozufozu.flywheel.config.FlwConfig;
 import com.jozufozu.flywheel.light.LightUpdater;
-import com.mojang.math.Vector3f;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.Camera;
 import net.minecraft.core.BlockPos;
+
+import org.joml.Vector3f;
 
 public abstract class InstanceManager<T> implements InstancingEngine.OriginShiftListener {
 

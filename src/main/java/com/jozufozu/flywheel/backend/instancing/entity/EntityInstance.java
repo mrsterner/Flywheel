@@ -8,7 +8,6 @@ import com.jozufozu.flywheel.backend.instancing.blockentity.BlockEntityInstanceM
 import com.jozufozu.flywheel.light.LightListener;
 import com.jozufozu.flywheel.light.TickingLightListener;
 import com.jozufozu.flywheel.util.box.GridAlignedBB;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
@@ -17,6 +16,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+
+import org.joml.Vector3f;
 
 /**
  * The layer between a {@link BlockEntity} and the Flywheel backend.
@@ -39,7 +40,7 @@ public abstract class EntityInstance<E extends Entity> extends AbstractInstance 
 	protected final GridAlignedBB bounds;
 
 	public EntityInstance(MaterialManager materialManager, E entity) {
-		super(materialManager, entity.level);
+		super(materialManager, entity.level());
 		this.entity = entity;
 		bounds = GridAlignedBB.from(entity.getBoundingBox());
 	}

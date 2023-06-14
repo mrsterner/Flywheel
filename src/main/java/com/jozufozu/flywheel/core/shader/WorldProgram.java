@@ -7,10 +7,11 @@ import static org.lwjgl.opengl.GL20.glUniform3f;
 import com.jozufozu.flywheel.backend.gl.shader.GlProgram;
 import com.jozufozu.flywheel.util.AnimationTickHolder;
 import com.mojang.blaze3d.platform.Window;
-import com.mojang.math.Matrix4f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
+
+import org.joml.Matrix4f;
 
 public class WorldProgram extends GlProgram {
 	protected final int uTime = getUniformLocation("uTime");

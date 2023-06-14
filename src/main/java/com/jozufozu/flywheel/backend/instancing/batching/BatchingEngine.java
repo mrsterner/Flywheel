@@ -13,12 +13,13 @@ import com.jozufozu.flywheel.backend.instancing.TaskEngine;
 import com.jozufozu.flywheel.event.RenderLayerEvent;
 import com.jozufozu.flywheel.util.FlwUtil;
 import com.mojang.blaze3d.platform.Lighting;
-import com.mojang.math.Matrix4f;
 
 import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
+
+import org.joml.Matrix4f;
 
 public class BatchingEngine implements Engine {
 
@@ -51,7 +52,7 @@ public class BatchingEngine implements Engine {
 
 		// FIXME: this probably breaks some vanilla stuff but it works much better for flywheel
 		Matrix4f mat = new Matrix4f();
-		mat.setIdentity();
+		mat.identity();
 		if (event.getWorld().effects().constantAmbientLight()) {
 			Lighting.setupNetherLevel(mat);
 		} else {
