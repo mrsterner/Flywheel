@@ -2,6 +2,8 @@ package com.jozufozu.flywheel.core.virtual;
 
 import net.minecraft.core.registries.Registries;
 
+import net.minecraft.world.level.chunk.LightChunk;
+
 import org.jetbrains.annotations.Nullable;
 
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
@@ -83,9 +85,20 @@ public interface VirtualEmptyBlockGetter extends RenderAttachedBlockView {
 
 		public StaticLightImpl(int blockLight, int skyLight) {
 			lightEngine = new LevelLightEngine(new LightChunkGetter() {
+
+				/*
 				@Override
 				public BlockGetter getChunkForLighting(int p_63023_, int p_63024_) {
 					return StaticLightImpl.this;
+				}
+
+				 */
+
+
+				@Nullable
+				@Override
+				public LightChunk getChunkForLighting(int i, int j) {
+					return null;//TODO
 				}
 
 				@Override
@@ -109,9 +122,6 @@ public interface VirtualEmptyBlockGetter extends RenderAttachedBlockView {
 				public void checkBlock(BlockPos pos) {
 				}
 
-				@Override
-				public void onBlockEmissionIncrease(BlockPos pos, int p_164456_) {
-				}
 
 				@Override
 				public boolean hasLightWork() {
@@ -119,8 +129,8 @@ public interface VirtualEmptyBlockGetter extends RenderAttachedBlockView {
 				}
 
 				@Override
-				public int runUpdates(int p_164449_, boolean p_164450_, boolean p_164451_) {
-					return p_164449_;
+				public int runLightUpdates() {
+					return 0;
 				}
 
 				@Override
@@ -128,7 +138,13 @@ public interface VirtualEmptyBlockGetter extends RenderAttachedBlockView {
 				}
 
 				@Override
-				public void enableLightSources(ChunkPos pos, boolean p_164453_) {
+				public void setLightEnabled(ChunkPos chunkPos, boolean bl) {
+
+				}
+
+				@Override
+				public void propagateLightSources(ChunkPos chunkPos) {
+
 				}
 
 				@Override

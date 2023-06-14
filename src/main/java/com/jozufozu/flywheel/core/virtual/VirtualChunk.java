@@ -69,20 +69,6 @@ public class VirtualChunk extends ChunkAccess {
 	}
 
 
-
-	@Override
-	public Stream<BlockPos> getLights() {
-		return world.blocksAdded.entrySet()
-			.stream()
-			.filter(it -> {
-				BlockPos blockPos = it.getKey();
-				boolean chunkContains = blockPos.getX() >> 4 == x && blockPos.getZ() >> 4 == z;
-				return chunkContains && it.getValue()
-					.getLightEmission() != 0;
-			})
-			.map(Map.Entry::getKey);
-	}
-
 	@Override
 	public LevelChunkSection[] getSections() {
 		return sections;
