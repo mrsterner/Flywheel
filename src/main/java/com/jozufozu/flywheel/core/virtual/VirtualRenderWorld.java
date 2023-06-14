@@ -71,9 +71,10 @@ public class VirtualRenderWorld extends Level implements FlywheelWorld {
 	public VirtualRenderWorld(Level level, Vec3i biomeOffset) {
 		this(level, biomeOffset, level.getHeight(), level.getMinBuildHeight());
 	}
-
+//protected Level(WritableLevelData writableLevelData, ResourceKey<Level> resourceKey, RegistryAccess registryAccess, Holder<DimensionType> holder, Supplier<ProfilerFiller> supplier, boolean bl, boolean bl2, long l, int i) {
+//
 	public VirtualRenderWorld(Level level, Vec3i biomeOffset, int height, int minBuildHeight) {
-		super((WritableLevelData) level.getLevelData(), level.dimension(), level.dimensionTypeRegistration(), level::getProfiler, true, false, 0, 0);
+		super((WritableLevelData) level.getLevelData(), level.dimension(), level.registryAccess(), level.dimensionTypeRegistration(), level::getProfiler, true, false, 0, 0);
 		this.biomeOffset = biomeOffset;
 		this.level = level;
 		this.height = nextMultipleOf16(height);
@@ -129,7 +130,7 @@ public class VirtualRenderWorld extends Level implements FlywheelWorld {
 			lighter.updateSectionStatus(sectionPos, false);
 		}
 
-		if ((flags & Block.UPDATE_SUPPRESS_LIGHT) == 0) {
+		if ((flags & 128) == 0) {
 			lighter.checkBlock(pos);
 		}
 
